@@ -10,7 +10,7 @@ Address these questions in a short set of agreements:
 ### Communication and meetings
 
 - Where will you communicate, how often will you check messages, and how quickly should teammates expect a reply?
-    - We will communicate over text for short messages and slack for large messages, messages involving only one or a few people, or messages including code blocks.
+    - We will communicate over text for short messages and slack for large messages, messages involving only one or a few people, or messages including code blocks. Expected response time is <12 hours unless the message is sent at night.
 
 - When and where will you meet?
     - We will host virtual or optionally in-person meetings every [NEED TO FIND DATE/TIME THAT WORKS]
