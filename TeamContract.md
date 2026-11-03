@@ -13,7 +13,7 @@ Address these questions in a short set of agreements:
     - We will communicate over text for short messages and slack for large messages, messages involving only one or a few people, or messages including code blocks. Expected response time is <12 hours unless the message is sent at night.
 
 - When and where will you meet?
-    - We will host virtual or optionally in-person meetings every [NEED TO FIND DATE/TIME THAT WORKS]
+    - We will host virtual or optionally in-person meetings every week based on availability in our live shared calendar.
   
 - How will someone let the team know they can’t attend?
     - They will send a message in our text group chat at least 12 hours before the planned meeting takes place.
@@ -67,7 +67,7 @@ Address these questions in a short set of agreements:
     - The person(s) who prompted the code generation will review it, as well as all of its test code to make sure every edge case is covered. By reviewing and testing it, they will understand it.
 
 - Explain how you’ll handle disagreements about its use.
-    - We will set a groundwork for AI usage in our first meeting and abide by it throughout the development process. (EDIT THIS AFTER MEETING 1)
+    - We will set a groundwork for AI usage in our first meeting and abide by it throughout the development process.
 
 
 ### Revisiting the agreement
