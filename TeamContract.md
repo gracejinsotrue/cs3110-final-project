@@ -1,76 +1,38 @@
 # Team Contract
 
-Write your team contract together. Start by telling one another what you hope to get out of the project and what you need from the team. You may have different schedules, interests, and ways of working. Find agreements everyone can actually keep.
+## What we want from the project
 
-## Agreements
+We want to build an enjoyable OCaml game while practicing functional programming, testing, and collaboration. Each person will own a substantive part of the game, share progress early, and ask for help before a delay blocks someone else.
 
-Address these questions in a short set of agreements:
+## Communication and meetings
 
+- We use the team text chat for brief or urgent messages and Slack for design discussions, code, decisions, and task updates. We keep project decisions in Slack so everyone can find them. The `#to-do` canvas is our task tracker.
+- Each teammate checks Slack at least twice each day. A teammate acknowledges a question within 12 hours while awake; a message sent overnight receives a reply by noon Eastern time the next day. A blocker or likely missed deadline goes to the text chat as soon as it is known.
+- We meet once a week. By Thursday at 8 p.m. Eastern, we choose the following week's meeting time in the shared calendar. The invitation includes a video link; we meet in person only if all attendees agree on a location. If no time is chosen by Thursday, the default is Sunday at 7 p.m. Eastern by video. A teammate who cannot attend gives at least 12 hours notice in the text chat, or as soon as possible in an emergency. Meeting notes and decisions go in Slack within 24 hours.
 
-### Communication and meetings
+## Decisions
 
-- Where will you communicate, how often will you check messages, and how quickly should teammates expect a reply?
-    - We will communicate over text for short messages and slack for large messages, messages involving only one or a few people, or messages including code blocks. Expected response time is <12 hours unless the message is sent at night.
+- Before a major project or interface decision, each teammate can post ideas in Slack. We discuss options respectfully and try a workable compromise first. A teammate may ask for a short discussion before a vote.
+- If the group cannot agree, a decision requires a majority of the five teammates. We allow 24 hours for input when the schedule permits; a deadline-sensitive decision can be made at a meeting or after a shorter window announced to everyone. The decision and its reason are recorded in Slack. If a disagreement involves only some teammates, the uninvolved teammates help evaluate the options before the vote.
 
-- When and where will you meet?
-    - We will host virtual or optionally in-person meetings every week based on availability in our live shared calendar.
-  
-- How will someone let the team know they can’t attend?
-    - They will send a message in our text group chat at least 12 hours before the planned meeting takes place.
+## Commitments and problems
 
+- Every task in the `#to-do` canvas names a primary owner, a backup, a specific deliverable, a due date, and a status (`not started`, `in progress`, `blocked`, or `done`). Owners update status when it changes and post a short progress note at least twice a week.
+- Someone who is stuck or may miss a commitment tells the text group promptly, including what is blocked, what they tried, what help they need, and a revised estimate. The backup acknowledges a blocker within 12 waking hours. Within 24 hours, the owner and backup agree on a next step and tell the team.
+- If work is missed, we assign a new owner or helper and a new due date in the task tracker. Blocking work takes priority over nonblocking work. The original owner later takes a comparable task from the person who helped. We check the recovery plan at the next team meeting or within 48 hours, whichever comes first. If the recovery plan is not followed, we ask the professor for team coaching immediately.
 
-### Decisions
+## Review and integration
 
-- How will you choose among competing ideas?
-    - We will first see if a simple compromise can be made to satisfy both parties (i.e do both). If they clash or are too much to implement in conjunction, we will hold a majority vote.
-  
-- What will you do when people disagree?
-    - When people disagree, they will be given the opportunity to express their thoughts to the remainder of the group, and in turn, will be expected to listen to the other sides’ thoughts. It is always expected that teammates will             remain respectful to one another. If the open dialogue doesn’t resolve the disagreement, the neutral/non-involved parties will vote on the correct course of action. If everyone is involved in the disagreement, a majority rule will        take place.
-  
-- Decide how everyone will get a chance to be heard and how you’ll reach a decision in time to keep working.
-    - For each major design decision (i.e. what project we do, pivotal software features, etc.) we will have a brainstorm where every team member will write a few ideas that will be amalgamated and discussed afterwards.
+- Code changes use descriptive commits and include tests for the behavior changed. For code after MS1, the contributor opens a pull request. A different teammate, preferably the backup owner, reviews the code and tests; the author does not approve their own change. We merge only after the review is addressed and `dune build` and `dune runtest` pass, or the team records why a check cannot run yet. We review integration and open pull requests at the weekly meeting.
+- Backup owners read the component interface, review at least one relevant test or change, and discuss progress with the primary owner weekly. The owner documents important behavior so a backup can help with a handoff.
+- Before changing a shared `.mli`, type, JSON format, or other interface, the owner posts an `INTERFACE CHANGE` note in Slack `#general` with the proposed change and affected modules. Affected owners and backups review it before merge. We update callers in the same integration pass.
 
+## AI use
 
-### Commitments and problems
+- We follow the course's AI and academic-integrity rules. AI assistance does not replace each contributor's own understanding. The person using AI inspects every generated line, checks it against the intended behavior, and personally runs relevant tests before committing; they are responsible for the result.
+- The contributor discloses AI-assisted code in the pull request and in a brief comment or acknowledgement in the affected file. They describe what AI helped with and how they verified it. The reviewer checks the code and tests independently and can ask the contributor to explain any part. We do not merge code that the contributor cannot explain or that has not been checked.
+- If teammates disagree about AI use, we pause the affected change, discuss the concern in Slack or at a meeting, and decide under the process above within 24 hours when feasible. Course rules take precedence over any team vote.
 
-- Where will you track who is doing what?
-    - Our TODO task section on slack.
-    
-- How will someone tell the team that they’re stuck or likely to miss a commitment?
-    - In our main text group chat.
+## Revisiting the agreement
 
-- How will you address missed work immediately, agree on what happens next, and follow up?
-    - The task will be opened up for the taking by anyone else on our team, and if it is a blocking task, will take precedence over current non-blocking work that members are undergoing. The person who missed a task will be responsible         for fulfilling a task from the member who picked up their slack at a later date.
-
-
-### Review and integration
-
-- How will you review one another’s changes and bring them together?
-    - When committing code, you will be expected to have an explanatory and detailed commit message. You are also responsible for developing test files ensuring that your code integrates with the codebase at large. We will do code              reviews at our weekly meetings.
-  
-- How will owners keep backups familiar with their work?
-    - By ensuring that their code has proper documentation / comments as well as touching base on progress at least once a week during our meetings.
-
-- Agree on how you’ll tell teammates about a change to an interface they use.
-  - This will occur on slack. We will make a channel with a title like #code updates and interface changes will go there so everyone sees it.
-
-
-### AI use
-
-- How does each person expect to use AI, and are there differences you need to talk through?
-    - AI may be used for code development, however every line of AI-generated code is expected to be thoroughly inspected by a human and tested personally. Under no circumstances should any non-inspected and vouched for AI code be              committed to the Github repository.
-
-- How will you tell one another about AI-assisted work?
-    - If AI was used in the development of a file, it can be put in a disclaimer comment at the top of the file.
-  
-- Who will review it, and how will you check that it works and that the people responsible understand it?
-    - The person(s) who prompted the code generation will review it, as well as all of its test code to make sure every edge case is covered. By reviewing and testing it, they will understand it.
-
-- Explain how you’ll handle disagreements about its use.
-    - We will set a groundwork for AI usage in our first meeting and abide by it throughout the development process.
-
-
-### Revisiting the agreement
-
-- When will you check whether these arrangements are working, and how will you change them together?
-    - We will review the agreement in-depth during our third meeting and also keep the document live for ad hoc editing.
+We review this contract at our third meeting and at each project milestone. Anyone may propose a change in Slack; all teammates have at least 24 hours to comment when timing permits. A change takes effect after a majority of the five teammates approve it, and the approved wording is committed to this file. We can also revisit a rule promptly when it is causing a problem.
