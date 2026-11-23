@@ -1,4 +1,5 @@
 {
+  "reward_pool": ["twin_jab", "wide_swing", "venom_dart", "dull_blade", "war_cry", "rally"],
   "cards": [
     {
       "id": "strike",

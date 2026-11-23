@@ -35,6 +35,7 @@ let describe : json -> string = function
   | `String _ -> "a string"
   | `Assoc _ -> "an object"
   | `List _ -> "a list"
+  | `Tuple _ | `Variant _ -> "a JSON value"
 
 let as_object path : json -> (string * json) list res = function
   | `Assoc kvs -> Ok kvs
@@ -271,7 +272,26 @@ let parse_document key parse_item ~source json =
   in
   items
 
-let parse_cards ~source json = parse_document "cards" parse_card ~source json
+let parse_cards ~source json =
+  let* kvs = as_object source json in
+  let+ () = check_keys source [ "cards"; "reward_pool" ] kvs
+  and+ cards =
+    let* items = get_list source kvs "cards" in
+    all parse_card (source ^ ": cards") items
+  in
+  cards
+
+let parse_reward_pool ~source json =
+  let* kvs = as_object source json in
+  match List.assoc_opt "reward_pool" kvs with
+  | None -> Ok []
+  | Some (`List ids) ->
+      all
+        (fun path -> function
+          | `String id -> Ok id
+          | j -> err path ("expected a string, got " ^ describe j))
+        (source ^ ": reward_pool") ids
+  | Some j -> err (source ^ ".reward_pool") ("expected a list, got " ^ describe j)
 
 let parse_enemies ~source json =
   parse_document "enemies" parse_enemy ~source json
@@ -288,9 +308,15 @@ let load_files ~cards ~enemies =
     let* json = read_json file in
     parse ~source:file json
   in
-  let+ content_cards = parse_file cards parse_cards
+  let parse_cards_doc () =
+    let* json = read_json cards in
+    let+ content_cards = parse_cards ~source:cards json
+    and+ content_reward_pool = parse_reward_pool ~source:cards json in
+    (content_cards, content_reward_pool)
+  in
+  let+ (content_cards, content_reward_pool) = parse_cards_doc ()
   and+ content_enemies = parse_file enemies parse_enemies in
-  { content_cards; content_enemies }
+  { content_cards; content_enemies; content_reward_pool }
 
 let load dir =
   load_files

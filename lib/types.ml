@@ -261,4 +261,5 @@ type run_state = {
 type content = {
   content_cards : card_def list;  (** Every card, with unique IDs. *)
   content_enemies : enemy_def list;  (** Every enemy, with unique IDs. *)
+  content_reward_pool : string list; (** Card IDs eligible for rewards. *)
 }

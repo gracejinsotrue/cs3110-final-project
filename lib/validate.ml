@@ -145,6 +145,11 @@ let content (c : content) =
           (List.map (fun e -> e.enemy_id) c.content_enemies);
         List.concat_map card_errors c.content_cards;
         List.concat_map enemy_errors c.content_enemies;
+        List.filter_map
+          (fun id ->
+            if List.exists (fun card -> card.card_id = id) c.content_cards then None
+            else Some (sprintf "reward_pool: unknown card ID %S" id))
+          c.content_reward_pool;
       ]
   in
   if errors = [] then Ok () else Error errors

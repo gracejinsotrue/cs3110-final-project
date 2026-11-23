@@ -11,6 +11,7 @@
 val content : Types.content -> (unit, string list) result
 (** [content c] is [Ok ()] if [c] is safe to play, or [Error msgs] with
     one message per problem. Hard errors are:
+    - a reward-pool ID that does not name a loaded card;
     - an ID that is empty, not lowercase [a-z0-9_] starting with a
       letter, or used by two cards (or two enemies);
     - an empty name, card description or intent label;
