@@ -15,3 +15,7 @@
  (libraries slay ounit2)
  (deps
   (source_tree ../data)))
+
+(test
+ (name combat_test)
+ (libraries slay ounit2))
