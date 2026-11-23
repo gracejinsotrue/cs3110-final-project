@@ -32,7 +32,13 @@ dune build
 dune test
 ```
 
-The game's entry point (`bin/main.ml`) is still being written. When it lands, `dune exec bin/main.exe` will start the game.
+To play, run this from the repository root (the game reads `data/`):
+
+```bash
+dune exec bin/main.exe
+```
+
+To load content from another folder (it needs `cards.json` and `enemies.json` that include the starter cards), pass it after `--`: `dune exec bin/main.exe -- path/to/folder`.
 
 ## Controls
 
@@ -44,7 +50,7 @@ Every number you type is the one shown on screen, counting from 1.
 | `choose <n>` | map, reward | Pick map node `n` or reward card `n` |
 | `play <card> [enemy]` | fight | Play hand card `card`; give `enemy` if the card hits one enemy |
 | `end` | fight | End your turn; enemies do what their intent said |
-| `deck` | map, fight | Show your run deck (map) or this fight's cards (fight) |
+| `deck` | map, fight, reward | Show your run deck (map, reward) or this fight's cards (fight) |
 | `help` | anywhere | List the commands valid on this screen |
 | `quit` | anywhere | Leave the game |
 
