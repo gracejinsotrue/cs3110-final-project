@@ -63,12 +63,15 @@ Every number you type is the one shown on screen, counting from 1.
 
 Cards and enemies live in `data/cards.json` and `data/enemies.json`. The game loads them with `Loader.load "data"` and checks them with `Validate.content` before playing.
 
+`cards.json` may include a top-level `reward_pool` array of card IDs. Every ID must name a loaded card; the run offers up to three distinct cards from this pool.
+
 **IDs** are lowercase letters, digits and `_`, start with a letter, and never change once used. Saves and the starter deck refer to cards by ID. Display names can change freely.
 
 ### Cards
 
 ```json
 {
+  "reward_pool": ["twin_jab", "venom_dart", "war_cry"],
   "cards": [
     {
       "id": "bash",

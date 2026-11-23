@@ -71,8 +71,8 @@ let mk_enemy ?(id = "test_enemy") ?(name = "Test Enemy") ?(max_hp = 20)
     enemy_behavior = behavior;
   }
 
-let only_cards cards = { content_cards = cards; content_enemies = [] }
-let only_enemies enemies = { content_cards = []; content_enemies = enemies }
+let only_cards cards = { content_cards = cards; content_enemies = []; content_reward_pool = [] }
+let only_enemies enemies = { content_cards = []; content_enemies = enemies; content_reward_pool = [] }
 let errors_of c = match Validate.content c with Ok () -> [] | Error es -> es
 
 let assert_invalid subs c = assert_error_with subs (Validate.content c)
@@ -114,7 +114,8 @@ let loader_valid_tests =
                 ];
           };
         ]
-        c.content_enemies );
+        c.content_enemies;
+      assert_equal [] c.content_reward_pool );
     ( "real data has the MS2 starter cards and enemy" >:: fun _ ->
       let c = get_ok "data" (Loader.load "../data") in
       assert_equal [ Deal (Selected_enemy, 6) ] (find_card c "strike").card_effects;
@@ -123,6 +124,10 @@ let loader_valid_tests =
         [ Deal (Selected_enemy, 8); Apply_status (Selected_enemy, Vulnerable, 2) ]
         (find_card c "bash").card_effects;
       assert_equal 2 (find_card c "bash").card_cost;
+      assert_equal
+        [ "twin_jab"; "wide_swing"; "venom_dart"; "dull_blade"; "war_cry"; "rally" ]
+        c.content_reward_pool;
+      assert_equal (Ok ()) (Validate.content c);
       let slime = find_enemy c "training_slime" in
       assert_equal 30 slime.enemy_max_hp;
       assert_equal 5 slime.enemy_gold );
@@ -436,6 +441,9 @@ let reference_tests =
         (Validate.enemy_ids_known (c ()) [ "dragon" ]) );
     ( "empty ID list is fine" >:: fun _ ->
       assert_equal (Ok ()) (Validate.card_ids_known (c ()) []) );
+    ( "unknown reward pool IDs fail content validation" >:: fun _ ->
+      let c = { (c ()) with content_reward_pool = [ "missing_card" ] } in
+      assert_error_with [ "reward_pool"; "missing_card" ] (Validate.content c) );
   ]
 
 let suite =

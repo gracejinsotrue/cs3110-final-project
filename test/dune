@@ -5,3 +5,7 @@
   (glob_files fixtures/*.json)
   (glob_files fixtures/tiny/*.json)
   (source_tree ../data)))
+
+(test
+ (name run_test)
+ (libraries slay ounit2))

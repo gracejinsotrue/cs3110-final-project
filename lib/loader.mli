@@ -29,7 +29,8 @@ val parse_enemies :
 
 val load_files :
   cards:string -> enemies:string -> (Types.content, string list) result
-(** [load_files ~cards ~enemies] reads and parses the two files. Errors
+(** [load_files ~cards ~enemies] reads and parses the two files. The cards
+    document may include a top-level [reward_pool] list of card IDs. Errors
     from both files are reported together. *)
 
 val load : string -> (Types.content, string list) result
