@@ -1,0 +1,17 @@
+{
+  "enemies": [
+    {
+      "id": "training_slime",
+      "name": "Training Slime",
+      "max_hp": 30,
+      "gold": 5,
+      "behavior": {
+        "type": "cycle",
+        "intents": [
+          { "label": "Attack 5", "actions": [{ "type": "attack", "amount": 5 }] },
+          { "label": "Defend 3", "actions": [{ "type": "defend", "amount": 3 }] }
+        ]
+      }
+    }
+  ]
+}

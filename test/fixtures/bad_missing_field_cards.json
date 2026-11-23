@@ -1,0 +1,5 @@
+{
+  "cards": [
+    { "id": "strike", "name": "Strike", "description": "Deal 6", "effects": [ { "type": "deal", "target": "selected_enemy", "amount": 6 } ] }
+  ]
+}

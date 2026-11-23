@@ -1,0 +1,82 @@
+{
+  "cards": [
+    {
+      "id": "strike",
+      "name": "Strike",
+      "cost": 1,
+      "description": "Deal 6 to one enemy",
+      "effects": [{ "type": "deal", "target": "selected_enemy", "amount": 6 }]
+    },
+    {
+      "id": "defend",
+      "name": "Defend",
+      "cost": 1,
+      "description": "Gain 5 block",
+      "effects": [{ "type": "gain_block", "amount": 5 }]
+    },
+    {
+      "id": "bash",
+      "name": "Bash",
+      "cost": 2,
+      "description": "Deal 8; apply 2 Vulnerable to one enemy",
+      "effects": [
+        { "type": "deal", "target": "selected_enemy", "amount": 8 },
+        { "type": "apply_status", "target": "selected_enemy", "status": "vulnerable", "amount": 2 }
+      ]
+    },
+    {
+      "id": "twin_jab",
+      "name": "Twin Jab",
+      "cost": 1,
+      "description": "Deal 4 to one enemy twice",
+      "effects": [
+        { "type": "deal", "target": "selected_enemy", "amount": 4 },
+        { "type": "deal", "target": "selected_enemy", "amount": 4 }
+      ]
+    },
+    {
+      "id": "wide_swing",
+      "name": "Wide Swing",
+      "cost": 1,
+      "description": "Deal 5 to all enemies",
+      "effects": [{ "type": "deal", "target": "all_enemies", "amount": 5 }]
+    },
+    {
+      "id": "venom_dart",
+      "name": "Venom Dart",
+      "cost": 1,
+      "description": "Deal 3; apply 4 Poison to one enemy",
+      "effects": [
+        { "type": "deal", "target": "selected_enemy", "amount": 3 },
+        { "type": "apply_status", "target": "selected_enemy", "status": "poison", "amount": 4 }
+      ]
+    },
+    {
+      "id": "dull_blade",
+      "name": "Dull Blade",
+      "cost": 1,
+      "description": "Deal 5; apply 2 Weak to one enemy",
+      "effects": [
+        { "type": "deal", "target": "selected_enemy", "amount": 5 },
+        { "type": "apply_status", "target": "selected_enemy", "status": "weak", "amount": 2 }
+      ]
+    },
+    {
+      "id": "war_cry",
+      "name": "War Cry",
+      "cost": 1,
+      "description": "Gain 2 Strength",
+      "effects": [{ "type": "apply_status", "target": "self", "status": "strength", "amount": 2 }]
+    },
+    {
+      "id": "rally",
+      "name": "Rally",
+      "cost": 1,
+      "description": "Draw 2 cards; gain 1 energy",
+      "effects": [
+        { "type": "draw", "amount": 2 },
+        { "type": "gain_energy", "amount": 1 }
+      ]
+    }
+  ]
+}

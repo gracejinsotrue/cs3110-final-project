@@ -1,0 +1,4 @@
+(library
+ (name slay)
+ (wrapped false)
+ (libraries yojson))

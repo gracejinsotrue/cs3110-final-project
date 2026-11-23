@@ -1,0 +1,5 @@
+{
+  "cards": [
+    { "id": "freebie", "name": "X", "cost": 0, "description": "X", "effects": [{ "type": "deal", "target": "selected_enemy", "amount": 9 }] }
+  ]
+}

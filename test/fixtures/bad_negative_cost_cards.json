@@ -1,0 +1,5 @@
+{
+  "cards": [
+    { "id": "cheap", "name": "X", "cost": -1, "description": "X", "effects": [{ "type": "deal", "target": "selected_enemy", "amount": 6 }] }
+  ]
+}
