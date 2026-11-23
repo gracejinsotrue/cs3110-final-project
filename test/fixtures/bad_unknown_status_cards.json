@@ -1,0 +1,5 @@
+{
+  "cards": [
+    { "id": "bash", "name": "X", "cost": 2, "description": "X", "effects": [{ "type": "deal", "target": "selected_enemy", "amount": 8 }, { "type": "apply_status", "target": "selected_enemy", "status": "stun", "amount": 2 }] }
+  ]
+}

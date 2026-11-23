@@ -1,0 +1,11 @@
+{
+  "enemies": [
+    {
+      "id": "empty_slime",
+      "name": "Empty Slime",
+      "max_hp": 20,
+      "gold": 3,
+      "behavior": { "type": "cycle", "intents": [] }
+    }
+  ]
+}

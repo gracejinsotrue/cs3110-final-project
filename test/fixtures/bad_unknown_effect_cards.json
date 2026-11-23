@@ -1,0 +1,5 @@
+{
+  "cards": [
+    { "id": "heal_up", "name": "X", "cost": 1, "description": "X", "effects": [{ "type": "heal", "amount": 5 }] }
+  ]
+}

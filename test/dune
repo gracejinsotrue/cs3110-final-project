@@ -1,0 +1,7 @@
+(test
+ (name content_test)
+ (libraries slay ounit2 yojson)
+ (deps
+  (glob_files fixtures/*.json)
+  (glob_files fixtures/tiny/*.json)
+  (source_tree ../data)))

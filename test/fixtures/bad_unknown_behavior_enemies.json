@@ -1,0 +1,11 @@
+{
+  "enemies": [
+    {
+      "id": "sleepy_slime",
+      "name": "Sleepy Slime",
+      "max_hp": 20,
+      "gold": 3,
+      "behavior": { "type": "sleep", "intents": [] }
+    }
+  ]
+}
