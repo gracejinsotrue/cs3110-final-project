@@ -9,3 +9,9 @@
 (test
  (name run_test)
  (libraries slay ounit2))
+
+(test
+ (name status_ai_test)
+ (libraries slay ounit2)
+ (deps
+  (source_tree ../data)))

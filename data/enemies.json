@@ -12,6 +12,26 @@
           { "label": "Defend 3", "actions": [{ "type": "defend", "amount": 3 }] }
         ]
       }
+    },
+    {
+      "id": "camel_king",
+      "name": "The Camel King",
+      "max_hp": 120,
+      "gold": 50,
+      "behavior": {
+        "type": "phase_at",
+        "pct": 50,
+        "high": [
+          { "label": "Gather Strength (+2 Strength)", "actions": [{ "type": "buff", "status": "strength", "amount": 2 }] },
+          { "label": "Attack 8", "actions": [{ "type": "attack", "amount": 8 }] },
+          { "label": "Defend 10, Attack 5", "actions": [{ "type": "defend", "amount": 10 }, { "type": "attack", "amount": 5 }] }
+        ],
+        "low": [
+          { "label": "Enraged Stomp 16", "actions": [{ "type": "attack", "amount": 16 }] },
+          { "label": "Spit: Attack 6, Poison 3", "actions": [{ "type": "attack", "amount": 6 }, { "type": "inflict", "status": "poison", "amount": 3 }] },
+          { "label": "Sandstorm: Weak 2, Vulnerable 2", "actions": [{ "type": "inflict", "status": "weak", "amount": 2 }, { "type": "inflict", "status": "vulnerable", "amount": 2 }] }
+        ]
+      }
     }
   ]
 }
