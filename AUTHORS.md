@@ -125,12 +125,36 @@ acknowledgement comment at the top of each file.
 
 ## Yuan Gao (yg626)
 
-**Area:**
+**Area:** Status rules and enemy AI (primary owner); backup owner for the
+Combat engine.
 
-**Files:**
+**Files:** `lib/status.ml`, `lib/status.mli`, `lib/enemy_ai.ml`,
+`lib/enemy_ai.mli`, `test/status_ai_test.ml`, the `status_ai_test` stanza in
+`test/dune`, and the `camel_king` boss in `data/enemies.json` (PR #8). Also
+the `camel_king` row in the README's behavior table, and the test "Vulnerable
+2 on an enemy boosts hits for two player turns" in `test/combat_test.ml`.
 
-**AI assistance:**
+**AI assistance:** Claude Code (Anthropic) wrote the first versions of the
+files above from `types.ml`, `sigs.ml` and the team plan. That covers the
+Status and Enemy_ai implementations, the 35 tests, the boss design, the extra
+Combat test and the PR #8 description.
 
 **Review and checks:**
+- **Code review:** I reviewed `status.ml` and `enemy_ai.ml` against the
+  contracts in `sigs.ml`. Each `.mli` is `include Sigs.STATUS` or
+  `include Sigs.ENEMY_AI`, so the build fails if either module stops matching.
+- **`dune test`:** all 35 Status and Enemy AI tests pass. The expected values
+  come from the rules in `README.md` and `sigs.ml`. For example, Vulnerable
+  turns 10 into 15, and Strength 4 then Weak turns 6 into 7 (8 if Weak were
+  applied first). One test checked the wrong thing at first: it couldn't tell
+  whether Strength or Weak came first. It was replaced with a case where the
+  order changes the result.
+- **Boss:** `camel_king` passes `Validate` with no warnings. A test checks that
+  it switches to its low-HP pattern below 50% HP.
+- **Combat backup:** I reviewed when `lib/combat.ml` calls Status (outgoing,
+  then incoming, then block; the player ticks at the end of their turn; each
+  enemy ticks right after its own action; poison ignores block). It matches
+  `sigs.ml`. I added one end-of-turn test for the case no test covered: how
+  long a Vulnerable that the player puts on an enemy lasts.
 
-**Other sources:**
+**Other sources:** none.

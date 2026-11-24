@@ -594,6 +594,25 @@ let end_turn_tests =
            let t = R.next_turn t in
            int_eq 77 (R.hp t);
            status_eq [ (Weak, 1) ] (R.foe 1 t).ce_statuses );
+         ( "Vulnerable 2 on an enemy boosts hits for two player turns" >:: fun _ ->
+           (* Added by Yuan Gao (yg626) as Status/AI owner and Combat backup.
+              The enemy ticks after its own action, so Bash's Vulnerable 2 is
+              still 1 on player turn 2 and gone by turn 3.
+              Turn 1: Bash 8 -> 22. Turn 2: Strike floor (6 * 1.5) = 9 -> 13.
+              Turn 3: Strike 6 -> 7. *)
+           let t =
+             R.start (bash :: repeat 4 strike) [ enemy [ attack 1 ] ]
+             |> R.play_id ~target:1 "bash"
+           in
+           int_eq 22 (R.foe_hp 1 t);
+           let t = R.next_turn t in
+           status_eq [ (Vulnerable, 1) ] (R.foe 1 t).ce_statuses;
+           let t = R.play_id ~target:1 "strike" t in
+           int_eq 13 (R.foe_hp 1 t);
+           let t = R.next_turn t in
+           status_eq [] (R.foe 1 t).ce_statuses;
+           let t = R.play_id ~target:1 "strike" t in
+           int_eq 7 (R.foe_hp 1 t) );
        ]
 
 (* ---------- results ---------- *)
