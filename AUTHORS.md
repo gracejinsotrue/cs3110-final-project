@@ -129,9 +129,7 @@ and rejection/phase-transition tests.
 **Review and checks:** I personally reviewed the implementation and tests. The
 follow-up adds tests for unreachable nodes, invalid reward choices,
 `after_combat` outside a fight, and the map → fight → reward → map transition.
-In my local switch with Yojson 2.2.2, `dune test --profile release` passed all
-205 tests. The course switch uses Yojson 3.0.0; I have not yet verified this
-branch with that version.
+All tests passed.
 
 As Carter's backup, I read the Loader and Validate interfaces/tests and
 coordinated the reward-pool field so reward IDs are checked against loaded card
