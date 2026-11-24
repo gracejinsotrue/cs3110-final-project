@@ -19,3 +19,7 @@
 (test
  (name combat_test)
  (libraries slay ounit2))
+
+(test
+ (name ui_test)
+ (libraries slay ounit2))
