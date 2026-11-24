@@ -157,6 +157,7 @@ An **intent** is a player-facing `label` plus a list of `actions`, which run in 
 | Enemy | Pattern | Counterplay |
 | --- | --- | --- |
 | `training_slime` | Attack 5, Defend 3, repeat | Block on attack turns, and hit hard on defend turns |
+| `camel_king` (boss) | At 50% HP or more: +2 Strength, Attack 8, Defend 10 + Attack 5, repeat. Below 50%: Attack 16, Attack 6 + 3 Poison, 2 Weak + 2 Vulnerable, repeat | Its Strength stacks, so it hits harder the longer the fight lasts. Pace your damage so you aren't low on HP when it drops below half and starts hitting hard |
 
 ### Adding a card or enemy
 
