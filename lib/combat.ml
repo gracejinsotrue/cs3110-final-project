@@ -93,9 +93,6 @@ module Make (S : Sigs.STATUS) (AI : Sigs.ENEMY_AI) = struct
       ev_statuses = f.foe_statuses;
     }
 
-  (** [one_to k] describes the valid range 1..k for error messages. *)
-  let one_to k = if k = 1 then "1" else Printf.sprintf "1 to %d" k
-
   (* ---------- End of the fight ---------- *)
 
   (** [settle t] records the result if the player or every enemy has just
@@ -212,10 +209,11 @@ module Make (S : Sigs.STATUS) (AI : Sigs.ENEMY_AI) = struct
     let k = List.length t.cb_hand in
     if k = 0 then Error "Your hand is empty. Type end to end your turn."
     else if n < 1 || n > k then
-      Error
-        (Printf.sprintf
-           "There is no card %d in your hand; choose a card from %s." n
-           (one_to k))
+      let hint =
+        if k = 1 then "your only card is 1"
+        else Printf.sprintf "choose a card from 1 to %d" k
+      in
+      Error (Printf.sprintf "There is no card %d in your hand; %s." n hint)
     else Ok (List.nth t.cb_hand (n - 1))
 
   let check_cost t card =
@@ -242,9 +240,11 @@ module Make (S : Sigs.STATUS) (AI : Sigs.ENEMY_AI) = struct
         let living = living_indices t in
         let k = List.length living in
         if n < 1 || n > k then
-          Error
-            (Printf.sprintf "There is no enemy %d; choose an enemy from %s." n
-               (one_to k))
+          let hint =
+            if k = 1 then "the only enemy is 1"
+            else Printf.sprintf "choose an enemy from 1 to %d" k
+          in
+          Error (Printf.sprintf "There is no enemy %d; %s." n hint)
         else Ok (Some (List.nth living (n - 1)))
 
   (* ---------- Enemy round ---------- *)
@@ -364,8 +364,8 @@ module Make (S : Sigs.STATUS) (AI : Sigs.ENEMY_AI) = struct
   let play_card t ~hand_index ~target_index =
     let* () = if over t then Error "The fight is over." else Ok () in
     let* card = hand_card t hand_index in
-    let* () = check_cost t card in
     let* sel = resolve_target t card hand_index target_index in
+    let* () = check_cost t card in
     let t = fresh t in
     let t =
       {

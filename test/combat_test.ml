@@ -308,13 +308,25 @@ let play_tests =
            int_eq 1 (F.view t).cv_energy;
            rejected ~mentions:"costs 2 energy, but you have 1"
              (F.play_card t ~hand_index:1 ~target_index:(Some 1)) );
+         ( "the target is checked before energy" >:: fun _ ->
+           (* Bash with 1 energy left: a missing or bad target is reported
+              rather than the cost. *)
+           let t = F.start (repeat 5 bash) [ dummy () ] |> F.play ~target:1 1 in
+           rejected ~mentions:"needs an enemy number"
+             (F.play_card t ~hand_index:1 ~target_index:None);
+           rejected ~mentions:"no enemy 5"
+             (F.play_card t ~hand_index:1 ~target_index:(Some 5)) );
          ( "bad hand numbers are rejected" >:: fun _ ->
            let t = F.start starter [ dummy () ] in
            List.iter
              (fun n ->
-               rejected ~mentions:"no card"
+               rejected ~mentions:"choose a card from 1 to 5"
                  (F.play_card t ~hand_index:n ~target_index:(Some 1)))
              [ 0; 6; -1 ] );
+         ( "with one card in hand, the error names it" >:: fun _ ->
+           let t = F.start [ strike ] [ dummy () ] in
+           rejected ~mentions:"no card 2 in your hand; your only card is 1"
+             (F.play_card t ~hand_index:2 ~target_index:(Some 1)) );
          ( "playing from an empty hand is rejected" >:: fun _ ->
            let t = F.start [] [ dummy () ] in
            rejected ~mentions:"hand is empty"
@@ -327,9 +339,12 @@ let play_tests =
            let t = F.start (repeat 5 strike) [ dummy () ] in
            List.iter
              (fun n ->
-               rejected ~mentions:"no enemy"
+               rejected ~mentions:"the only enemy is 1"
                  (F.play_card t ~hand_index:1 ~target_index:(Some n)))
-             [ 2; 0; -1 ] );
+             [ 2; 0; -1 ];
+           let t = F.start (repeat 5 strike) [ dummy (); dummy () ] in
+           rejected ~mentions:"no enemy 3; choose an enemy from 1 to 2"
+             (F.play_card t ~hand_index:1 ~target_index:(Some 3)) );
          ( "a self card given an enemy number is rejected" >:: fun _ ->
            let t = F.start (repeat 5 defend) [ dummy () ] in
            rejected ~mentions:"does not take an enemy number"

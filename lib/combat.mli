@@ -12,12 +12,14 @@
 
     {2 Playing a card}
     [play_card] checks, in this order and before changing anything, that: the
-    fight is not over; the hand number exists; the card is affordable; and the
-    target is right. A card with any [Selected_enemy] effect needs a living
-    enemy number. A card with none must {i not} be given one ([play 2 1] for
-    Defend is an error, not a silent ignore). On success it removes the card
-    from the hand, pays its cost, runs its effects in list order, and only then
-    puts it on the discard pile, so a card's own [Draw] can never draw it again.
+    fight is not over; the hand number exists; the target is right; and the card
+    is affordable. A card with any [Selected_enemy] effect needs a living enemy
+    number. A card with none must {i not} be given one ([play 2 1] for Defend is
+    an error, not a silent ignore). On success it removes the card from the
+    hand, pays its cost, runs its effects in list order, and only then puts it
+    on the discard pile, so a card's own [Draw] can never draw it again. If the
+    selected enemy dies partway through a card, the card's remaining effects on
+    it do nothing; they never move on to another enemy.
 
     {2 Ending the turn}
     [end_turn] does, in order:
