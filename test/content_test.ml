@@ -446,6 +446,65 @@ let reference_tests =
       assert_error_with [ "reward_pool"; "missing_card" ] (Validate.content c) );
   ]
 
+(* ---------- Reward offers (backup check for Kiyam's Rewards/Run) ---------- *)
+
+(** The offer exactly as [bin/main.ml] builds it: resolve the pool IDs to
+    card definitions, let [Rewards.generate] pick, and keep the IDs. *)
+let offer c seed =
+  let pool = List.filter_map (fun id -> List.find_opt (fun d -> d.card_id = id) c.content_cards) c.content_reward_pool in
+  Rewards.generate (Random.State.make [| seed; 0; 1 |]) pool
+  |> List.map (fun d -> d.card_id)
+
+let seeds = List.init 500 Fun.id
+
+let reward_tests =
+  let c () = get_ok "data" (Loader.load "../data") in
+  [
+    ( "real reward pool is distinct, has 3+ cards, and holds no starter cards" >:: fun _ ->
+      let pool = (c ()).content_reward_pool in
+      assert_equal ~printer:string_of_int (List.length pool)
+        (List.length (List.sort_uniq compare pool));
+      assert_bool "pool needs at least 3 cards for a full offer" (List.length pool >= 3);
+      List.iter
+        (fun id ->
+          assert_bool (id ^ " is a starter card") (not (List.mem id [ "strike"; "defend"; "bash" ])))
+        pool );
+    ( "every offered ID over 500 seeds is a known pool card" >:: fun _ ->
+      let c = c () in
+      List.iter
+        (fun seed ->
+          let ids = offer c seed in
+          assert_equal (Ok ()) (Validate.card_ids_known c ids);
+          List.iter
+            (fun id ->
+              assert_bool (Printf.sprintf "seed %d offered %s, not in the pool" seed id)
+                (List.mem id c.content_reward_pool))
+            ids)
+        seeds );
+    ( "every offer has exactly 3 distinct cards" >:: fun _ ->
+      let c = c () in
+      List.iter
+        (fun seed ->
+          let ids = offer c seed in
+          assert_equal ~printer:string_of_int 3 (List.length ids);
+          assert_equal ~printer:string_of_int 3 (List.length (List.sort_uniq compare ids)))
+        seeds );
+    ( "every pool card is offered for some seed" >:: fun _ ->
+      let c = c () in
+      let seen = List.sort_uniq compare (List.concat_map (offer c) seeds) in
+      assert_equal ~printer:(String.concat ", ")
+        (List.sort compare c.content_reward_pool) seen );
+    ( "an offered ID round-trips through Run.choose_reward into the deck" >:: fun _ ->
+      let c = c () in
+      let ids = offer c 42 in
+      let r = { (Run.new_run ~seed:42) with run_phase = Fighting "training_slime"; run_current_node = Some 1 } in
+      let won = { res_won = true; res_hp_left = 70; res_gold = 5 } in
+      let r = get_ok "after_combat" (Result.map_error (fun e -> [ e ]) (Run.after_combat r won ~reward_ids:ids)) in
+      let r = get_ok "choose_reward" (Result.map_error (fun e -> [ e ]) (Run.choose_reward r 2)) in
+      assert_equal (List.nth ids 1) (List.nth r.run_deck (List.length r.run_deck - 1));
+      assert_equal (Ok ()) (Validate.card_ids_known c r.run_deck) );
+  ]
+
 let suite =
   "content tests"
   >::: [
@@ -454,6 +513,7 @@ let suite =
          "validate: errors" >::: validate_error_tests;
          "validate: warnings" >::: warning_tests;
          "validate: references" >::: reference_tests;
+         "rewards: offered IDs" >::: reward_tests;
        ]
 
 let () = run_test_tt_main suite

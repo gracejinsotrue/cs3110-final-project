@@ -35,7 +35,6 @@ let describe : json -> string = function
   | `String _ -> "a string"
   | `Assoc _ -> "an object"
   | `List _ -> "a list"
-  | `Tuple _ | `Variant _ -> "a JSON value"
 
 let as_object path : json -> (string * json) list res = function
   | `Assoc kvs -> Ok kvs

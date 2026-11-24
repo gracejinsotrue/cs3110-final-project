@@ -59,6 +59,16 @@ Every number you type is the one shown on screen, counting from 1.
 - **End of a fight:** you win when every enemy is at 0 HP (you keep your HP and get the enemy's gold), and you lose at 0 HP. After a normal win you pick 1 of up to 3 cards to add to your deck.
 - **Rest:** heal 30% of max HP (rounded up).
 
+## Decisions the team agreed on
+
+These choices were settled during MS2. The code follows them, and changing one needs agreement from all five owners.
+
+- **Numbering is 1-based.** Every hand, enemy, map and reward number the player types or sees starts at 1. Internal lists may count from 0, but the conversion happens once, where the UI meets Combat.
+- **A card with no enemy target rejects an enemy number.** `play 2 1` on Defend is an error ("Defend does not take an enemy number. Type: play 2"), not a silent ignore. A card with any single-enemy effect must be given a living enemy number.
+- **The target is checked before energy.** `play_card` checks, in order: the fight is not over, the hand number exists, the target is right, and the card is affordable. A play with a wrong target never spends energy and reports the target problem first. (Combat change in PR #11.)
+- **Leftover hits on a dead target are wasted.** If the chosen enemy dies partway through a card (for example, the second hit of Twin Jab), the rest of that card's effects on it do nothing. They never move to another enemy.
+- **A rejected command changes nothing.** Bad input or an illegal move leaves the game exactly as it was and prints why.
+
 ## Content format
 
 Cards and enemies live in `data/cards.json` and `data/enemies.json`. The game loads them with `Loader.load "data"` and checks them with `Validate.content` before playing.
