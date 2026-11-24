@@ -23,7 +23,7 @@ We want to build an enjoyable OCaml game while practicing functional programming
 
 ## Review and integration
 
-- Code changes use descriptive commits and include tests for the behavior changed. For code after MS1, the contributor opens a pull request. A different teammate, preferably the backup owner, reviews the code and tests; the author does not approve their own change. We merge only after the review is addressed and `dune build` and `dune runtest` pass, or the team records why a check cannot run yet. We review integration and open pull requests at the weekly meeting.
+- Code changes use descriptive commits and include tests for the behavior changed. For code after MS1, the contributor opens a pull request. A different teammate, preferably the backup owner, reviews the code and tests; the author does not approve their own change. We merge only after the review is addressed and `dune build` and `dune runtest` pass on the course setup (the `cs3110-2026fa` opam switch, which has Yojson 3.0.0), or the team records why a check cannot run yet. Code that builds on another setup can still fail on the course one. We review integration and open pull requests at the weekly meeting.
 - Backup owners read the component interface, review at least one relevant test or change, and discuss progress with the primary owner weekly. The owner documents important behavior so a backup can help with a handoff.
 - Before changing a shared `.mli`, type, JSON format, or other interface, the owner posts an `INTERFACE CHANGE` note in Slack `#general` with the proposed change and affected modules. Affected owners and backups review it before merge. We update callers in the same integration pass.
 
