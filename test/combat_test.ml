@@ -1,3 +1,8 @@
+(* AI acknowledgement: written with AI assistance (Claude Code); owner Nick
+   Lennon (ncl46). Expected values come from the rules in README.md, worked
+   out before running the code rather than copied from its output. PRs #9 and
+   #11 give the details. *)
+
 (** Black-box tests for [Combat]. They check only [view], [result] and
     [fight_cards], never Combat's private state. Hand order depends on the
     shuffle, so tests either use decks of one card kind or look a card up by ID

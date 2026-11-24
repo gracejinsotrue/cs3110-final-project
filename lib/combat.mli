@@ -1,3 +1,6 @@
+(* AI acknowledgement: written with AI assistance (Claude Code) from the team
+   plan; owner Nick Lennon (ncl46). PRs #9 and #11 say how it was checked. *)
+
 (** The combat engine: one fight between the player and one or more enemies.
 
     [Combat.Make (Status) (Enemy_ai)] builds the engine from the status

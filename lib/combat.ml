@@ -1,3 +1,8 @@
+(* AI acknowledgement: written with AI assistance (Claude Code) from the team
+   plan; owner Nick Lennon (ncl46). Checked with test/combat_test.ml, planted
+   bugs that the tests had to catch, and seeded runs on the real data/ files.
+   PRs #9 and #11 give the details. *)
+
 open Types
 
 let ( let* ) = Result.bind
