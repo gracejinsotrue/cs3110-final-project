@@ -12,7 +12,7 @@ draws on these entries, so keep them factual and point to files and PRs.
 enemy AI.
 
 **Files:** `lib/combat.ml`, `lib/combat.mli`, `test/combat_test.ml`, and the
-`combat_test` stanza in `test/dune` (PRs #9 and #11).
+`combat_test` stanza in `test/dune` (PRs #9 and #11); `TEAM_PLAN.md`.
 
 **AI assistance:** Claude Code (Anthropic) wrote the first versions of the
 files above from the team plan:
@@ -22,6 +22,8 @@ files above from the team plan:
 It also wrote throwaway scripts that played seeded fights through Loader, Run,
 Rewards and Grace's game (not committed). It drafted the descriptions for PRs
 #9 and #11 and the acknowledgement comments at the top of each Combat file.
+It also converted the team plan into `TEAM_PLAN.md` and added the type-sketch
+changes and the contract freeze to it.
 
 **Review and checks:**
 - **Code review:** I reviewed every line of the Combat code and tests. As
@@ -32,9 +34,9 @@ Rewards and Grace's game (not committed). It drafted the descriptions for PRs
   - setup errors are returned as values;
   - a leftover hit on a dead target is never moved to another enemy;
   - all of a fight's randomness comes from the seed Main passes in.
-- **`dune test`:** all 51 Combat tests pass. The expected values come from the
-  rules in `README.md`, worked out before the code was run, not copied from its
-  output.
+- **`dune test`:** all 52 Combat tests pass (my 51, plus Yuan's Vulnerable
+  timing test). The expected values come from the rules in `README.md`, worked
+  out before the code was run, not copied from its output.
 - **Planted bugs (run by Claude Code):** deliberate bugs went into `combat.ml`
   (for example, discarding a card before its effects, or applying Vulnerable
   before Strength and Weak). The tests had to catch each one. One bug was
