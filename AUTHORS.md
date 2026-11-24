@@ -60,15 +60,24 @@ Rewards and Grace's game (not committed). It drafted the descriptions for PRs
 
 ## Grace Jin (gsj33)
 
-**Area:**
+**Area:** UI, input and integration (primary owner); the dune build and merging.
 
-**Files:**
+**Files:** `lib/ui.ml`, `lib/ui.mli`, `bin/main.ml`, `bin/dune`,
+`test/ui_test.ml`, the `ui_test` stanza in `test/dune`, and the run
+instructions in `README.md` (PR #10).
 
-**AI assistance:**
+**AI assistance:** Claude Code (Anthropic) wrote the first versions of the
+files above from the team plan, plus the PR #10 description and the
+acknowledgement comment at the top of each file.
 
 **Review and checks:**
+- **Code review:** I reviewed the Ui and Main code and the 55 UI tests.
+- **`dune test`:** all tests pass.
+- **Playthroughs (run by Claude Code):** seeded games of `bin/main.exe` on the
+  real `data/`: a win through the reward pick, a loss, invalid commands, and a
+  missing data folder.
 
-**Other sources:**
+**Other sources:** none.
 
 ## Kiyam Merali (km942)
 
