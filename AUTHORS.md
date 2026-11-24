@@ -81,15 +81,32 @@ acknowledgement comment at the top of each file.
 
 ## Kiyam Merali (km942)
 
-**Area:**
+**Area:** Map, rewards, and run progression; backup for UI/integration and
+content/loading.
 
-**Files:**
+**Files:** `lib/map.ml(i)`, `lib/rewards.ml(i)`, `lib/run.ml(i)`,
+`lib/types.ml`, reward-pool loading and validation in `lib/loader.ml(i)` and
+`lib/validate.ml(i)`, `test/run_test.ml`, and related content tests (PR #7 and
+the follow-up branch).
 
-**AI assistance:**
+**AI assistance:** OpenAI Codex assisted with the map, rewards, and run
+implementation, reward-pool changes, and follow-up tests. It drafted the fixed
+route, seeded reward selection, run transitions, loader/validation changes,
+and rejection/phase-transition tests.
 
-**Review and checks:**
+**Review and checks:** The follow-up adds tests for unreachable nodes, invalid
+reward choices, `after_combat` outside a fight, and the map → fight → reward →
+map transition. On the refreshed `origin/master`, Codex ran
+`dune test --profile release`; all 205 tests passed. Standard `dune test`
+currently stops because warning 8 in upstream `lib/loader.ml` is treated as an
+error; that file was left untouched. Kiyam should personally review the
+AI-assisted changes and rerun the checks before submission, as required by the
+team contract. As Carter's backup, Kiyam read the Loader and Validate
+interfaces/tests and coordinated the reward-pool field so reward IDs are
+checked against loaded card definitions.
 
-**Other sources:**
+**Other sources:** Team plan, README, shared type contract, and MS1Report.pdf;
+no external sources.
 
 ## Yuan Gao (yg626)
 

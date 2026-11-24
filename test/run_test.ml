@@ -12,6 +12,9 @@ let tests = "run" >::: [
     assert_bool "unreachable choice rejected" (Result.is_error (Run.enter_node r 9));
     let r = match Run.enter_node r 1 with Ok r -> r | Error e -> assert_failure e in
     assert_equal (Fighting "training_slime") r.run_phase);
+  "reject unreachable node" >:: (fun _ ->
+    let r = Run.new_run ~seed:1 in
+    assert_equal (Error "node 2 is not reachable") (Run.enter_node r 2));
   "win reward adds card" >:: (fun _ ->
     let r = Run.new_run ~seed:7 |> fun r -> Result.get_ok (Run.enter_node r 1) in
     let r = Result.get_ok (Run.after_combat r (combat_result true 61 5) ~reward_ids:["twin_jab"; "rally"]) in
@@ -24,6 +27,26 @@ let tests = "run" >::: [
     let r = Run.new_run ~seed:7 |> fun r -> Result.get_ok (Run.enter_node r 1) in
     let r = Result.get_ok (Run.after_combat r (combat_result false 0 0) ~reward_ids:[]) in
     assert_equal Lost r.run_phase; assert_equal 0 r.run_gold);
+  "reject invalid reward choice" >:: (fun _ ->
+    let r = Run.new_run ~seed:2 |> fun r -> Result.get_ok (Run.enter_node r 1) in
+    let r = Result.get_ok (Run.after_combat r (combat_result true 70 5) ~reward_ids:["rally"]) in
+    assert_bool "zero is invalid" (Result.is_error (Run.choose_reward r 0));
+    assert_bool "past offer list is invalid" (Result.is_error (Run.choose_reward r 2)));
+  "reject combat result outside fight" >:: (fun _ ->
+    let r = Run.new_run ~seed:3 in
+    assert_equal (Error "combat result is only valid while fighting")
+      (Run.after_combat r (combat_result true 80 5) ~reward_ids:["rally"]));
+  "phase transitions from map through reward" >:: (fun _ ->
+    let start = Run.new_run ~seed:4 in
+    assert_equal On_map start.run_phase;
+    let fighting = Result.get_ok (Run.enter_node start 1) in
+    assert_equal (Fighting "training_slime") fighting.run_phase;
+    let reward = Result.get_ok (Run.after_combat fighting (combat_result true 69 5)
+      ~reward_ids:["rally"]) in
+    assert_equal (Reward_pending ["rally"]) reward.run_phase;
+    let returned = Result.get_ok (Run.choose_reward reward 1) in
+    assert_equal On_map returned.run_phase;
+    assert_equal ["rally"] (List.filter ((=) "rally") returned.run_deck));
   "reward repeatability and distinctness" >:: (fun _ ->
     let cards = (Result.get_ok (Loader.load "../data")).content_cards in
     let rng () = Random.State.make [| 123 |] in
