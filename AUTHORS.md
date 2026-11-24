@@ -12,7 +12,9 @@ draws on these entries, so keep them factual and point to files and PRs.
 enemy AI.
 
 **Files:** `lib/combat.ml`, `lib/combat.mli`, `test/combat_test.ml`, and the
-`combat_test` stanza in `test/dune` (PRs #9 and #11); `TEAM_PLAN.md`.
+`combat_test` stanza in `test/dune` (PRs #9 and #11); the shared contract
+`lib/types.ml` and `lib/sigs.ml` (PR #5, frozen on 2026-11-23 with all five
+owners' approval); `TEAM_PLAN.md`.
 
 **AI assistance:** Claude Code (Anthropic) wrote the first versions of the
 files above from the team plan:
@@ -24,6 +26,10 @@ Rewards and Grace's game (not committed). It drafted the descriptions for PRs
 #9 and #11 and the acknowledgement comments at the top of each Combat file.
 It also converted the team plan into `TEAM_PLAN.md` and added the type-sketch
 changes and the contract freeze to it.
+
+Claude Code also helped draft `lib/types.ml` and `lib/sigs.ml`. Most of their
+design came from the team's own discussion, and all five owners reviewed the
+draft before approving the freeze.
 
 **Review and checks:**
 - **Code review:** I reviewed every line of the Combat code and tests. As
