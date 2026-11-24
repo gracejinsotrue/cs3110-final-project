@@ -48,15 +48,47 @@ Rewards and Grace's game (not committed). It drafted the descriptions for PRs
 
 ## Carter Chamberlain (cjc423)
 
-**Area:**
+**Area:** Content, loading and validation (primary owner), and the README.
+Backup owner for UI and Main (Grace) and for checking reward IDs (Kiyam).
 
-**Files:**
+**Files:** `lib/loader.ml`, `lib/loader.mli`, `lib/validate.ml`,
+`lib/validate.mli`, `data/cards.json`, `data/enemies.json`,
+`test/content_test.ml`, `test/fixtures/`, the first `dune-project`,
+`lib/dune` and `test/dune`, and the README's build, rules, content-format and
+agreed-decisions sections (PRs #6 and #13).
 
-**AI assistance:**
+**AI assistance:** Claude Code (Anthropic) wrote the first versions of the
+files above from the team plan:
+- the JSON format and the MS2 card and enemy set;
+- the Loader, with error messages that name the file and field;
+- Validate's errors, balance warnings and ID checks;
+- the content tests and the bad-input fixtures.
+
+In PR #13 it also wrote:
+- the Yojson 3 build fix in `lib/loader.ml`;
+- the reward-offer tests;
+- the README decisions section.
+
+It drafted my MS2 report section.
 
 **Review and checks:**
+- **Code review:** I reviewed the code, focusing on the types used in the JSON
+  format and the data passed between modules (`Types.content`, the reward pool,
+  and the IDs Main checks at startup).
+- **`dune test`:** all 55 content tests pass. These include one fixture per
+  kind of bad input, each of which must give an error naming the field and the
+  bad value.
+- **Build fix:** `master` failed to compile on the course's Yojson 3.0.0. A
+  fresh clone with the fix applied builds and passes every suite.
+- **Backup checks (run by Claude Code):**
+  - **For Kiyam:** reward offers over 500 seeds contain only known cards from
+    the reward pool.
+  - **For Grace:** PR #10 was built with the fix and played through a seeded
+    game to victory and a reward pick, with invalid commands rejected.
 
-**Other sources:**
+**Other sources:** Yojson and OUnit2 documentation. The game's genre and the
+starter card names Strike, Defend and Bash come from *Slay the Spire* (Mega
+Crit). All other card and enemy names, values and text are our own.
 
 ## Grace Jin (gsj33)
 
