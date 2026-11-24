@@ -40,9 +40,9 @@ Rewards and Grace's game (not committed). It drafted the descriptions for PRs
   before Strength and Weak). The tests had to catch each one. One bug was
   missed at first, so that test was strengthened.
 - **Integration (Claude Code's scripts):** seeded runs on the real `data/`
-  files went through Loader,
-  Validate, Run, Combat, Rewards and back to the map, ending in both wins and
-  losses. A scripted playthrough of `bin/main.ml` also worked.
+  files went through Loader, Validate, Run, Combat, Rewards and back to the
+  map, ending in both wins and losses. A scripted playthrough of `bin/main.ml`
+  also worked.
 
 **Other sources:** none.
 
