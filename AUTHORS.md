@@ -57,14 +57,14 @@ Backup owner for UI and Main (Grace) and for checking reward IDs (Kiyam).
 `lib/dune` and `test/dune`, and the README's build, rules, content-format and
 agreed-decisions sections (PRs #6 and #13).
 
-**AI assistance:** Claude Code (Anthropic) wrote the first versions of the
+**AI assistance:** Claude Code (Anthropic) debugged the first versions of the
 files above from the team plan:
 - the JSON format and the MS2 card and enemy set;
 - the Loader, with error messages that name the file and field;
 - Validate's errors, balance warnings and ID checks;
 - the content tests and the bad-input fixtures.
 
-In PR #13 it also wrote:
+In PR #13 I also wrote:
 - the Yojson 3 build fix in `lib/loader.ml`;
 - the reward-offer tests;
 - the README decisions section.
